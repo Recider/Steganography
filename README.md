@@ -1,6 +1,8 @@
+
 Steganography
-Created: 17-10-2014 by Recider
 =============
+
+Created: 17-10-2014 by Recider
 
 Simple steganography program, written in C#.
 
