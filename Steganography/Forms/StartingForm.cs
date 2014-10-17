@@ -62,7 +62,7 @@ namespace Steganography
         private void buttonSetOutputLoc_Click(object sender, EventArgs e)
         {
             SaveFileDialog OutputLocDialog = new SaveFileDialog();
-            OutputLocDialog.Filter = "JPEG Image (*.jpg) |*.jpg|PNG Image (*.png) |*.png|Bitmap (*.bmp) |*.bmp|All files (*.*) |*.*";
+            OutputLocDialog.Filter = "PNG Image (*.png) |*.png|Bitmap (*.bmp) |*.bmp|All files (*.*) |*.*";
             OutputLocDialog.Title = "Set processed image location";
             OutputLocDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
@@ -100,21 +100,34 @@ namespace Steganography
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
-            SteganoEngine.SetRGBOverrideMethod(0);
+            SteganoEngine.SetRGBOverwriteMethod(0);
         }
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
-            SteganoEngine.SetRGBOverrideMethod(1);
+            SteganoEngine.SetRGBOverwriteMethod(1);
+        }
+
+        private void radioButton6_CheckedChanged(object sender, EventArgs e)
+        {
+            SteganoEngine.SetRGBOverwriteMethod(2);
         }
 
         private void radioButton3_CheckedChanged(object sender, EventArgs e)
         {
-            SteganoEngine.SetRGBOverrideMethod(2);
+            SteganoEngine.SetRGBOverwriteMethod(3);
+        }
+        private void radioButton7_CheckedChanged(object sender, EventArgs e)
+        {
+            SteganoEngine.SetRGBOverwriteMethod(4);
+        }
+        private void radioButton8_CheckedChanged(object sender, EventArgs e)
+        {
+            SteganoEngine.SetRGBOverwriteMethod(5);
         }
         private void groupBox3_Enter(object sender, EventArgs e)
         {
-            SteganoEngine.SetRGBOverrideMethod(3);
+            
         }
         private void button1_Click(object sender, EventArgs e)
         {
@@ -145,8 +158,8 @@ namespace Steganography
                 MessageBox.Show("Input image location not set!", "I hate titles", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else if (SteganoEngine.ImageOutputLoc == null)
                 MessageBox.Show("Output image location not set!", "I hate titles", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            else if (SteganoEngine.RGBOverrideMethod == -1)
-                MessageBox.Show("RGB Channel override not set!", "I hate titles", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            else if (SteganoEngine.RGBOverwriteMethod == -1)
+                MessageBox.Show("RGB Channel Overwrite not set!", "I hate titles", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else if (SteganoEngine.TextSource == -1)
                 MessageBox.Show("Text source not set!", "I hate titles", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else if (SteganoEngine.TextSource == 0 && SteganoEngine.TextFileLoc == null)
@@ -166,6 +179,27 @@ namespace Steganography
                 }
             }
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            SteganoEngine.ResetVariables();
+            this.Hide();
+            Steganography.Forms.ImageReaderForm IRF = new Steganography.Forms.ImageReaderForm();
+            IRF.Show();
+        }
+
+        private void StartingForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+       
+
+       
+
+        
+
+        
 
       
     }

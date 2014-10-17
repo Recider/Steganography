@@ -37,7 +37,7 @@ namespace Steganography.Forms
         private void button2_Click(object sender, EventArgs e)
         {
             this.button2.Enabled = false;
-            SteganoEngine.OverrideColorChannel(this);
+            SteganoEngine.OverwriteColorChannel(this);
         }
 
         public void SetupProgressBar(int Maximum)
