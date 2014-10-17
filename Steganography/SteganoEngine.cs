@@ -40,6 +40,8 @@ namespace Steganography
 
         public static Boolean UseEOTString = false;
 
+        public static Thread OverwriteChannelThread;
+        public static Thread ReadingImageThread;
 
         public SteganoEngine() { }
 
@@ -120,7 +122,7 @@ namespace Steganography
             }
         }
 
-        public static void OverwriteColorChannel(Steganography.Forms.ProcessForm Interface){
+        public static void OverwriteColorChannel(Steganography.Forms.ImageOverwriterForm Interface){
             
 
             // load text from text file if file method was selected
@@ -146,7 +148,7 @@ namespace Steganography
             OutputBitmap = (Bitmap)InputBitmap.Clone();
             // setup ProcessForm Status Controllers
             Interface.SetupProgressBar(CustomText.Length);
-            new Thread(delegate()
+            OverwriteChannelThread = new Thread(delegate()
             {
                 Boolean Failure = false;
                 Boolean EndOfText = false;
@@ -291,7 +293,9 @@ namespace Steganography
                     }
 
                 }
-            }).Start();
+            });
+            OverwriteChannelThread.IsBackground = true;
+            OverwriteChannelThread.Start();
 
         }
 
@@ -305,7 +309,11 @@ namespace Steganography
                 EOTMatch = 0;
                 return false;
             }
-            if (EOTMatch == EOTString.Length) return true;
+            if (EOTMatch == EOTString.Length)
+            {
+                EOTMatch = 0;
+                return true;
+            }
             else return false;
         }
 
@@ -316,7 +324,7 @@ namespace Steganography
             String OutputString = "";
             Char AttachChar = ' ';
             Boolean FoundEOT = false;
-            new Thread(delegate()
+            ReadingImageThread = new Thread(delegate()
             {
                 
                 try
@@ -377,7 +385,9 @@ namespace Steganography
                     Interface.CallErrorMessage("Error occured during processing image: " + x.Message);
                     Console.WriteLine(x.StackTrace);
                 }
-            }).Start();
+            });
+            ReadingImageThread.IsBackground = true;
+            ReadingImageThread.Start();
             
         }
     }

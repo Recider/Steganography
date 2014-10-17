@@ -72,6 +72,7 @@ namespace Steganography.Forms
 
         public void EndingProcedure(String Output)
         {
+            SetupGroupBoxes(true);
             Steganography.Forms.ReadedImageViewer RIV = new Steganography.Forms.ReadedImageViewer();
             RIV.SetReadImage(Output);
             RIV.ShowDialog();
@@ -86,7 +87,25 @@ namespace Steganography.Forms
                 MessageBox.Show("You need to load input image first!", "I hate titles", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
             }
             else
+            {
+                SetupGroupBoxes(false);
                 SteganoEngine.ReadTextFromImage(this);
+            }
+        }
+
+        private void SetupGroupBoxes(Boolean set)
+        {
+            // disable/enable channels radio buttons
+            foreach (RadioButton c in this.ChannelsGroup.Controls.OfType<RadioButton>())
+                c.Invoke(new MethodInvoker(delegate { c.Enabled = set; })); ;
+            // disable/enable reading options radio buttons
+            foreach (RadioButton c in this.ReadingOptionsGroup.Controls.OfType<RadioButton>())
+                c.Invoke(new MethodInvoker(delegate { c.Enabled = set; })); ;
+
+            this.searchForEOTCheckbox.Invoke(new MethodInvoker(delegate { this.searchForEOTCheckbox.Enabled = set; }));
+            this.textEOTString.Invoke(new MethodInvoker(delegate { this.textEOTString.Enabled = set; }));
+            this.readImageButton.Invoke(new MethodInvoker(delegate { this.readImageButton.Enabled = set; }));
+            this.buttonSetInputLoc.Invoke(new MethodInvoker(delegate { this.buttonSetInputLoc.Enabled = set; }));
         }
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
@@ -125,7 +144,7 @@ namespace Steganography.Forms
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            if (this.checkBox1.Checked)
+            if (this.searchForEOTCheckbox.Checked)
             {
                 this.textEOTString.Enabled = true;
                 SteganoEngine.SetUsingEOTString(true);

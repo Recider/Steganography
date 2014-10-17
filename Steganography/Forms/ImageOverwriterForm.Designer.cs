@@ -1,6 +1,6 @@
 ﻿namespace Steganography.Forms
 {
-    partial class ProcessForm
+    partial class ImageOverwriterForm
     {
         /// <summary>
         /// Required designer variable.
@@ -39,6 +39,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.labelStatus = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
+            this.buttonBackToMenu = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.OutputBitmap)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.InputBitmap)).BeginInit();
@@ -111,7 +112,7 @@
             // button1
             // 
             this.button1.Enabled = false;
-            this.button1.Location = new System.Drawing.Point(487, 271);
+            this.button1.Location = new System.Drawing.Point(393, 271);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(105, 23);
             this.button1.TabIndex = 3;
@@ -139,7 +140,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(406, 271);
+            this.button2.Location = new System.Drawing.Point(312, 271);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 6;
@@ -147,11 +148,23 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // ProcessForm
+            // buttonBackToMenu
+            // 
+            this.buttonBackToMenu.Enabled = false;
+            this.buttonBackToMenu.Location = new System.Drawing.Point(504, 271);
+            this.buttonBackToMenu.Name = "buttonBackToMenu";
+            this.buttonBackToMenu.Size = new System.Drawing.Size(90, 23);
+            this.buttonBackToMenu.TabIndex = 7;
+            this.buttonBackToMenu.Text = "Back to menu";
+            this.buttonBackToMenu.UseVisualStyleBackColor = true;
+            this.buttonBackToMenu.Click += new System.EventHandler(this.buttonBackToMenu_Click);
+            // 
+            // ImageOverwriterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(606, 306);
+            this.Controls.Add(this.buttonBackToMenu);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.labelStatus);
             this.Controls.Add(this.label4);
@@ -161,7 +174,7 @@
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
-            this.Name = "ProcessForm";
+            this.Name = "ImageOverwriterForm";
             this.Text = "Processing image...";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ProcessForm_FormClosed);
             this.Load += new System.EventHandler(this.ProcessForm_Load);
@@ -187,5 +200,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label labelStatus;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button buttonBackToMenu;
     }
 }

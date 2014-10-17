@@ -174,7 +174,7 @@ namespace Steganography
                     MessageBox.Show("Input image is incorrect!", "I hate titles", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 else
                 {
-                    Steganography.Forms.ProcessForm ProcessForm = new Steganography.Forms.ProcessForm();
+                    Steganography.Forms.ImageOverwriterForm ProcessForm = new Steganography.Forms.ImageOverwriterForm();
                     ProcessForm.LoadInputImage();
                     this.Hide();
                     ProcessForm.Show();

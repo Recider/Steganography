@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.ChannelsGroup = new System.Windows.Forms.GroupBox();
             this.radioButton8 = new System.Windows.Forms.RadioButton();
             this.radioButton7 = new System.Windows.Forms.RadioButton();
             this.radioButton3 = new System.Windows.Forms.RadioButton();
@@ -40,35 +40,35 @@
             this.label1 = new System.Windows.Forms.Label();
             this.buttonSetInputLoc = new System.Windows.Forms.Button();
             this.ReadableImageInput = new System.Windows.Forms.PictureBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.readImageButton = new System.Windows.Forms.Button();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.label2 = new System.Windows.Forms.Label();
             this.labelStatus = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.ReadingOptionsGroup = new System.Windows.Forms.GroupBox();
+            this.textEOTString = new System.Windows.Forms.TextBox();
+            this.searchForEOTCheckbox = new System.Windows.Forms.CheckBox();
             this.radioButton5 = new System.Windows.Forms.RadioButton();
             this.radioButton4 = new System.Windows.Forms.RadioButton();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.textEOTString = new System.Windows.Forms.TextBox();
-            this.groupBox3.SuspendLayout();
+            this.ChannelsGroup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ReadableImageInput)).BeginInit();
-            this.groupBox1.SuspendLayout();
+            this.ReadingOptionsGroup.SuspendLayout();
             this.SuspendLayout();
             // 
-            // groupBox3
+            // ChannelsGroup
             // 
-            this.groupBox3.Controls.Add(this.radioButton8);
-            this.groupBox3.Controls.Add(this.radioButton7);
-            this.groupBox3.Controls.Add(this.radioButton3);
-            this.groupBox3.Controls.Add(this.radioButton6);
-            this.groupBox3.Controls.Add(this.radioButton2);
-            this.groupBox3.Controls.Add(this.radioButton1);
-            this.groupBox3.Controls.Add(this.label3);
-            this.groupBox3.Location = new System.Drawing.Point(15, 32);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(390, 61);
-            this.groupBox3.TabIndex = 12;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Channels";
+            this.ChannelsGroup.Controls.Add(this.radioButton8);
+            this.ChannelsGroup.Controls.Add(this.radioButton7);
+            this.ChannelsGroup.Controls.Add(this.radioButton3);
+            this.ChannelsGroup.Controls.Add(this.radioButton6);
+            this.ChannelsGroup.Controls.Add(this.radioButton2);
+            this.ChannelsGroup.Controls.Add(this.radioButton1);
+            this.ChannelsGroup.Controls.Add(this.label3);
+            this.ChannelsGroup.Location = new System.Drawing.Point(15, 32);
+            this.ChannelsGroup.Name = "ChannelsGroup";
+            this.ChannelsGroup.Size = new System.Drawing.Size(390, 61);
+            this.ChannelsGroup.TabIndex = 12;
+            this.ChannelsGroup.TabStop = false;
+            this.ChannelsGroup.Text = "Channels";
             // 
             // radioButton8
             // 
@@ -186,16 +186,16 @@
             this.ReadableImageInput.TabIndex = 13;
             this.ReadableImageInput.TabStop = false;
             // 
-            // button1
+            // readImageButton
             // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.button1.Location = new System.Drawing.Point(15, 170);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(93, 23);
-            this.button1.TabIndex = 14;
-            this.button1.Text = "Read image";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.readImageButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.readImageButton.Location = new System.Drawing.Point(15, 170);
+            this.readImageButton.Name = "readImageButton";
+            this.readImageButton.Size = new System.Drawing.Size(93, 23);
+            this.readImageButton.TabIndex = 14;
+            this.readImageButton.Text = "Read image";
+            this.readImageButton.UseVisualStyleBackColor = true;
+            this.readImageButton.Click += new System.EventHandler(this.button1_Click);
             // 
             // progressBar1
             // 
@@ -223,18 +223,38 @@
             this.labelStatus.TabIndex = 17;
             this.labelStatus.Text = "Waiting for user input...";
             // 
-            // groupBox1
+            // ReadingOptionsGroup
             // 
-            this.groupBox1.Controls.Add(this.textEOTString);
-            this.groupBox1.Controls.Add(this.checkBox1);
-            this.groupBox1.Controls.Add(this.radioButton5);
-            this.groupBox1.Controls.Add(this.radioButton4);
-            this.groupBox1.Location = new System.Drawing.Point(15, 99);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(388, 65);
-            this.groupBox1.TabIndex = 18;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Reading options";
+            this.ReadingOptionsGroup.Controls.Add(this.textEOTString);
+            this.ReadingOptionsGroup.Controls.Add(this.searchForEOTCheckbox);
+            this.ReadingOptionsGroup.Controls.Add(this.radioButton5);
+            this.ReadingOptionsGroup.Controls.Add(this.radioButton4);
+            this.ReadingOptionsGroup.Location = new System.Drawing.Point(15, 99);
+            this.ReadingOptionsGroup.Name = "ReadingOptionsGroup";
+            this.ReadingOptionsGroup.Size = new System.Drawing.Size(388, 65);
+            this.ReadingOptionsGroup.TabIndex = 18;
+            this.ReadingOptionsGroup.TabStop = false;
+            this.ReadingOptionsGroup.Text = "Reading options";
+            // 
+            // textEOTString
+            // 
+            this.textEOTString.Enabled = false;
+            this.textEOTString.Location = new System.Drawing.Point(222, 16);
+            this.textEOTString.Name = "textEOTString";
+            this.textEOTString.Size = new System.Drawing.Size(100, 20);
+            this.textEOTString.TabIndex = 3;
+            this.textEOTString.TextChanged += new System.EventHandler(this.textEOTString_TextChanged);
+            // 
+            // searchForEOTCheckbox
+            // 
+            this.searchForEOTCheckbox.AutoSize = true;
+            this.searchForEOTCheckbox.Location = new System.Drawing.Point(116, 19);
+            this.searchForEOTCheckbox.Name = "searchForEOTCheckbox";
+            this.searchForEOTCheckbox.Size = new System.Drawing.Size(100, 17);
+            this.searchForEOTCheckbox.TabIndex = 2;
+            this.searchForEOTCheckbox.Text = "Search for EOT";
+            this.searchForEOTCheckbox.UseVisualStyleBackColor = true;
+            this.searchForEOTCheckbox.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // radioButton5
             // 
@@ -259,52 +279,32 @@
             this.radioButton4.Text = "Vertical";
             this.radioButton4.UseVisualStyleBackColor = true;
             // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(116, 19);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(100, 17);
-            this.checkBox1.TabIndex = 2;
-            this.checkBox1.Text = "Search for EOT";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
-            // 
-            // textEOTString
-            // 
-            this.textEOTString.Enabled = false;
-            this.textEOTString.Location = new System.Drawing.Point(222, 16);
-            this.textEOTString.Name = "textEOTString";
-            this.textEOTString.Size = new System.Drawing.Size(100, 20);
-            this.textEOTString.TabIndex = 3;
-            this.textEOTString.TextChanged += new System.EventHandler(this.textEOTString_TextChanged);
-            // 
             // ImageReaderForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(687, 236);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.ReadingOptionsGroup);
             this.Controls.Add(this.labelStatus);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.progressBar1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.readImageButton);
             this.Controls.Add(this.ReadableImageInput);
             this.Controls.Add(this.textboxImageInput);
-            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.ChannelsGroup);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonSetInputLoc);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "ImageReaderForm";
-            this.Text = "ImageReaderForm";
+            this.Text = "Image Reader";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ImageReaderForm_FormClosed);
             this.Load += new System.EventHandler(this.ImageReaderForm_Load);
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
+            this.ChannelsGroup.ResumeLayout(false);
+            this.ChannelsGroup.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ReadableImageInput)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.ReadingOptionsGroup.ResumeLayout(false);
+            this.ReadingOptionsGroup.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -312,7 +312,7 @@
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.GroupBox ChannelsGroup;
         private System.Windows.Forms.RadioButton radioButton6;
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.RadioButton radioButton1;
@@ -321,17 +321,17 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonSetInputLoc;
         private System.Windows.Forms.PictureBox ReadableImageInput;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button readImageButton;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label labelStatus;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox ReadingOptionsGroup;
         private System.Windows.Forms.RadioButton radioButton5;
         private System.Windows.Forms.RadioButton radioButton4;
         private System.Windows.Forms.RadioButton radioButton3;
         private System.Windows.Forms.RadioButton radioButton8;
         private System.Windows.Forms.RadioButton radioButton7;
         private System.Windows.Forms.TextBox textEOTString;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox searchForEOTCheckbox;
     }
 }

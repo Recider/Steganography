@@ -6,15 +6,16 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Steganography.Forms
 {
-    public partial class ProcessForm : Form
+    public partial class ImageOverwriterForm : Form
     {
 
-        public ProcessForm()
+        public ImageOverwriterForm()
         {
             InitializeComponent();
         }
@@ -79,6 +80,7 @@ namespace Steganography.Forms
         {
             this.button1.Invoke(new MethodInvoker(delegate { this.button1.Enabled = true; }));
             this.InputBitmap.Invoke(new MethodInvoker(delegate { this.OutputBitmap.Image = Output; }));
+            this.buttonBackToMenu.Invoke(new MethodInvoker(delegate { this.buttonBackToMenu.Enabled = true; }));
         }
 
         private void ProcessForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -89,6 +91,13 @@ namespace Steganography.Forms
         private void button1_Click(object sender, EventArgs e)
         {
             Process.Start(SteganoEngine.ImageOutputLoc);
+        }
+
+        private void buttonBackToMenu_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Steganography.StartingForm SF = new Steganography.StartingForm();
+            SF.Show();
         }
     }
 }
