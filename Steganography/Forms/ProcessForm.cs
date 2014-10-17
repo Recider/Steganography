@@ -42,8 +42,8 @@ namespace Steganography.Forms
 
         public void SetupProgressBar(int Maximum)
         {
-            this.progressBar1.Maximum = Maximum;
-            this.progressBar1.Value = 0;
+            this.progressBar1.Invoke(new MethodInvoker(delegate { this.progressBar1.Value = 0; }));
+            this.progressBar1.Invoke(new MethodInvoker(delegate { this.progressBar1.Maximum = Maximum; }));
         }
 
         public void CallErrorMessage(String message)
@@ -54,6 +54,11 @@ namespace Steganography.Forms
         public void CallErrorMessage(MessageBoxIcon x, String message)
         {
             MessageBox.Show(message, "I hate titles", MessageBoxButtons.OK, x);
+        }
+
+        public void UpdateProgress(String Status)
+        {
+            this.labelStatus.Invoke(new MethodInvoker(delegate { labelStatus.Text = Status; }));
         }
 
         public void UpdateProgress(int CurrentProgress, String Status, Image Output)

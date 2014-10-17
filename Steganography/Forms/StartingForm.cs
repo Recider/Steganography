@@ -166,6 +166,8 @@ namespace Steganography
                 MessageBox.Show("Text file source set, but file is not set!", "I hate titles", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else if (SteganoEngine.TextSource == 1 && (SteganoEngine.CustomText == null || SteganoEngine.CustomText.Length == 0))
                 MessageBox.Show("Custom text source set, but text is not set!", "I hate titles", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            else if (SteganoEngine.UseEOTString && (SteganoEngine.EOTString == null || SteganoEngine.EOTString.Length == 0))
+                MessageBox.Show("EOT string using set, but text is not set!", "I hate titles", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
             {
                 if (!SteganoEngine.LoadBitmap())
@@ -191,6 +193,25 @@ namespace Steganography
         private void StartingForm_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.checkBox1.Checked)
+            {
+                this.textEOTString.Enabled = true;
+                SteganoEngine.SetUsingEOTString(true);
+            }
+            else
+            {
+                this.textEOTString.Enabled = false;
+                SteganoEngine.SetUsingEOTString(false);
+            }
+        }
+
+        private void textEOTString_TextChanged(object sender, EventArgs e)
+        {
+            SteganoEngine.SetEOTString(this.textEOTString.Text);
         }
 
        

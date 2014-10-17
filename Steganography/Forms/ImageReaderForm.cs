@@ -117,6 +117,30 @@ namespace Steganography.Forms
         {
             SteganoEngine.SetRGBOverwriteMethod(5);
         }
+
+        private void progressBar1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.checkBox1.Checked)
+            {
+                this.textEOTString.Enabled = true;
+                SteganoEngine.SetUsingEOTString(true);
+            }
+            else
+            {
+                this.textEOTString.Enabled = false;
+                SteganoEngine.SetUsingEOTString(false);
+            }
+        }
+
+        private void textEOTString_TextChanged(object sender, EventArgs e)
+        {
+            SteganoEngine.SetEOTString(this.textEOTString.Text);
+        }
       
     }
 }

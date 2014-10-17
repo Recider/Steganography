@@ -33,11 +33,27 @@ namespace Steganography
         public static String ImageOutputLoc;
         public static String TextFileLoc;
         public static String CustomText;
+        public static String EOTString;
 
         public static Bitmap InputBitmap;
         public static Bitmap OutputBitmap;
 
+        public static Boolean UseEOTString = false;
+
+
         public SteganoEngine() { }
+
+        public static void SetUsingEOTString(Boolean value)
+        {
+            UseEOTString = value;
+            Console.WriteLine("Changed property of Using EOT String: " + UseEOTString);
+        }
+
+        public static void SetEOTString(String value)
+        {
+            EOTString = value;
+            Console.WriteLine("EOT String property set to: "+EOTString);
+        }
 
         public static void SetTextSource(int set)
         {
@@ -85,6 +101,8 @@ namespace Steganography
             TextSource = -1;
             InputBitmap = null;
             OutputBitmap = null;
+            EOTString = null;
+            UseEOTString = false;
             System.Console.WriteLine("Static variables just got nulled.");
         }
 
@@ -132,6 +150,8 @@ namespace Steganography
             {
                 Boolean Failure = false;
                 Boolean EndOfText = false;
+                int i = 0;
+
                 try
                 {
                     for (int w = 0; w < InputBitmap.Width; w++)
@@ -172,15 +192,58 @@ namespace Steganography
                                             break;
                                     }
                                 }
-                                Console.WriteLine(String.Format("CurrentPixel [{0}, {1}, {2}]", CurrentPixel.R, CurrentPixel.G, CurrentPixel.B));
+                                Console.WriteLine(String.Format("CurrentPixel [{0}, {1}, {2}, {3}]", CurrentPixel.A, CurrentPixel.R, CurrentPixel.G, CurrentPixel.B));
                                 OutputBitmap.SetPixel(w, h, CurrentPixel);
                                 Interface.UpdateProgress((w * (InputBitmap.Height - 1)) + h + 1, "Creating new bitmap...", (Image)OutputBitmap.Clone());
                                 Thread.Sleep(1);
                             }
+                            // End of string, optional stamping for EOT
                             else
                             {
-                                EndOfText = true;
-                                break;
+                                
+                                if (UseEOTString && i < EOTString.Length )
+                                {
+                                    CurrentPixel = InputBitmap.GetPixel(w, h);
+                                    int OverwriteCharASCII = (int)EOTString[i];
+                                    if (OverwriteCharASCII > 255)
+                                        Console.WriteLine("WARNING: Char ASCII " + (int)EOTString[i] + " is incorrect number for ARGB, omitting...");
+                                    else
+                                    {
+                                        Console.WriteLine(String.Format("Ovewriting EOT letter {0}, ASCII: {1}", EOTString[i], (int)CustomText[i]));
+                                        switch (RGBOverwriteMethod)
+                                        {
+                                            case 0:
+                                                CurrentPixel = Color.FromArgb(OverwriteCharASCII, CurrentPixel.G, CurrentPixel.B);
+                                                break;
+                                            case 1:
+                                                CurrentPixel = Color.FromArgb(CurrentPixel.R, OverwriteCharASCII, CurrentPixel.B);
+                                                break;
+                                            case 2:
+                                                CurrentPixel = Color.FromArgb(CurrentPixel.R, CurrentPixel.G, OverwriteCharASCII);
+                                                break;
+                                            case 3:
+                                                CurrentPixel = Color.FromArgb(OverwriteCharASCII, CurrentPixel.R, CurrentPixel.G, CurrentPixel.B);
+                                                break;
+                                            case 4:
+                                                CurrentPixel = Color.FromArgb(OverwriteCharASCII, OverwriteCharASCII, OverwriteCharASCII);
+                                                break;
+                                            case 5:
+                                                CurrentPixel = Color.FromArgb(OverwriteCharASCII, OverwriteCharASCII, OverwriteCharASCII, OverwriteCharASCII);
+                                                break;
+                                        }
+                                    }
+                                    Console.WriteLine(String.Format("CurrentPixel [{0}, {1}, {2}, {3}]", CurrentPixel.A, CurrentPixel.R, CurrentPixel.G, CurrentPixel.B));
+                                    OutputBitmap.SetPixel(w, h, CurrentPixel);
+                                    Interface.UpdateProgress("Overwriting EOT chars");
+                                    Thread.Sleep(1);
+                                    i++;
+                                }
+                                else
+                                {
+                                    EndOfText = true;
+                                    break;
+                                }
+                                
                             }
                         }
                     }
@@ -232,17 +295,35 @@ namespace Steganography
 
         }
 
+        private static int EOTMatch = 0;
+
+        private static Boolean CheckEOT(Char ElementChar)
+        {
+            if (ElementChar == EOTString[EOTMatch]) EOTMatch++;
+            else
+            {
+                EOTMatch = 0;
+                return false;
+            }
+            if (EOTMatch == EOTString.Length) return true;
+            else return false;
+        }
 
         public static void ReadTextFromImage(Steganography.Forms.ImageReaderForm Interface)
         {
+            
             Interface.SetupProgressBar(InputBitmap.Width * InputBitmap.Height);
             String OutputString = "";
+            Char AttachChar = ' ';
+            Boolean FoundEOT = false;
             new Thread(delegate()
             {
                 
                 try
                 {
-                    for(int w=0; w<InputBitmap.Width; w++)
+                    for (int w = 0; w < InputBitmap.Width; w++)
+                    {
+                        if (FoundEOT) break;
                         for (int h = 0; h < InputBitmap.Height; h++)
                         {
                             Color CurrentPixel = InputBitmap.GetPixel(w, h);
@@ -250,34 +331,45 @@ namespace Steganography
                             {
                                 // Console.Writeline here is very 
                                 case 0:
-                                    OutputString += (char)CurrentPixel.R;
+                                    AttachChar = (char)CurrentPixel.R;
                                     //Console.WriteLine("Read char: " + (char)CurrentPixel.R + ", ASCII: " + CurrentPixel.R);
                                     break;
                                 case 1:
-                                    OutputString += (char)CurrentPixel.G;
+                                    AttachChar = (char)CurrentPixel.G;
                                     //Console.WriteLine("Read char: " + (char)CurrentPixel.G + ", ASCII: " + CurrentPixel.G);
                                     break;
                                 case 2:
-                                    OutputString += (char)CurrentPixel.B;
+                                    AttachChar = (char)CurrentPixel.B;
                                     //Console.WriteLine("Read char: " + (char)CurrentPixel.B + ", ASCII: " + CurrentPixel.B);
                                     break;
                                 // case 3 is obsolete
                                 case 3:
-                                    OutputString += (char)CurrentPixel.A;
+                                    AttachChar = (char)CurrentPixel.A;
                                     //Console.WriteLine("Read char: " + (char)CurrentPixel.A + ", ASCII: " + CurrentPixel.A);
                                     break;
                                 case 4:
-                                    OutputString += (char)CurrentPixel.R; // it doesnt matter from which channel we read ASCII char in this method (RGB)
+                                    AttachChar = (char)CurrentPixel.R; // it doesnt matter from which channel we read ASCII char in this method (RGB)
                                     //Console.WriteLine("Read char: " + (char)CurrentPixel.A + ", ASCII: " + CurrentPixel.A);
                                     break;
                                 case 5:
-                                    OutputString += (char)CurrentPixel.A; // it doesnt matter from which channel we read ASCII char in this method (ARGB)
+                                    AttachChar = (char)CurrentPixel.A; // it doesnt matter from which channel we read ASCII char in this method (ARGB)
                                     //Console.WriteLine("Read char: " + (char)CurrentPixel.A + ", ASCII: " + CurrentPixel.A);
                                     break;
                             }
-                            
-                            Interface.UpdateProgress((w*InputBitmap.Height)+h+1, "Reading image");
+
+                            OutputString += AttachChar;
+                            Interface.UpdateProgress((w * InputBitmap.Height) + h + 1, String.Format("Reading image | {0} px/{1} px", (w * InputBitmap.Height) + h + 1, InputBitmap.Width * InputBitmap.Height));
+                            if (UseEOTString)
+                                if (CheckEOT(AttachChar))
+                                {
+                                    Interface.UpdateProgress(InputBitmap.Width * InputBitmap.Height, "Reading image | Found EOT");
+                                    FoundEOT = true;
+                                    break;
+                                }
+
+                            Thread.Sleep(1);
                         }
+                    }
                     Interface.EndingProcedure(OutputString);
                 }
                 catch (Exception x)
