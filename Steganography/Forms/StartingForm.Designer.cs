@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StartingForm));
             this.buttonSetInputLoc = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.textboxImageInput = new System.Windows.Forms.TextBox();
@@ -35,6 +36,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.buttonSetOutputLoc = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textEOTString = new System.Windows.Forms.TextBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.radioButton5 = new System.Windows.Forms.RadioButton();
             this.radioButton4 = new System.Windows.Forms.RadioButton();
             this.buttonTypeCustomText = new System.Windows.Forms.Button();
@@ -57,8 +60,6 @@
             this.radioButton3 = new System.Windows.Forms.RadioButton();
             this.radioButton6 = new System.Windows.Forms.RadioButton();
             this.button3 = new System.Windows.Forms.Button();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.textEOTString = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -134,6 +135,26 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Text properties";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // textEOTString
+            // 
+            this.textEOTString.Enabled = false;
+            this.textEOTString.Location = new System.Drawing.Point(203, 48);
+            this.textEOTString.Name = "textEOTString";
+            this.textEOTString.Size = new System.Drawing.Size(99, 20);
+            this.textEOTString.TabIndex = 12;
+            this.textEOTString.TextChanged += new System.EventHandler(this.textEOTString_TextChanged);
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(203, 24);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(98, 17);
+            this.checkBox1.TabIndex = 11;
+            this.checkBox1.Text = "Add EOT string";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // radioButton5
             // 
@@ -381,26 +402,6 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(203, 24);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(98, 17);
-            this.checkBox1.TabIndex = 11;
-            this.checkBox1.Text = "Add EOT string";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
-            // 
-            // textEOTString
-            // 
-            this.textEOTString.Enabled = false;
-            this.textEOTString.Location = new System.Drawing.Point(203, 48);
-            this.textEOTString.Name = "textEOTString";
-            this.textEOTString.Size = new System.Drawing.Size(99, 20);
-            this.textEOTString.TabIndex = 12;
-            this.textEOTString.TextChanged += new System.EventHandler(this.textEOTString_TextChanged);
-            // 
             // StartingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -419,6 +420,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonSetInputLoc);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "StartingForm";
             this.Text = "Steganography";
